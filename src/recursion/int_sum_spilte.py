@@ -20,17 +20,15 @@ def f(m,arr):
     n = arr.pop();
     if n==1 :
         return ;
-    if n<m:m=n;
-
+    # if n<m:m=n;
+    
     for i in range(n-1,0,-1):
         if i>m:continue;
         j = n - i;
         arr.append(i);
         arr.append(j);
         m=i;
-        if m>=j:
-            print(arr);
-            pass;
+        if m>=j:print(arr);
         f(m,arr);
         arr.pop();
 
@@ -40,7 +38,7 @@ def f(m,arr):
 
 def run():
     
-    a = [10];
+    a = [6];
     f(a[-1],a);
 
     
