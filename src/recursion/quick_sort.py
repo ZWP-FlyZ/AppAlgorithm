@@ -40,8 +40,7 @@ def quick_sort(a,left,right):
     pass;
 
 def run():
-    a=np.arange(100000,0,-1);
-    b=np.zeros_like(a);
+    a=np.arange(400,0,-1);
     si = len(a);
 
     print(a);

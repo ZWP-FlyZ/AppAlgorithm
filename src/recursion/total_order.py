@@ -20,6 +20,13 @@ def swap(arr,a,b):
     arr[a]= arr[b];
     arr[b] = tmp;
 
+
+def same(arr,k,m):
+    for i in range(k,m):
+        if arr[i]==arr[m]:
+            return True;
+    return False;
+
 def order(arr,k):
     m = len(arr);
     if k == (m-1):
@@ -27,6 +34,8 @@ def order(arr,k):
         pass;
     else:
         for i in range(k,m):
+            if(same(arr,k,i)):
+                continue;
             swap(arr,i,k);
             order(arr,k+1);
             swap(arr,i,k);
@@ -34,6 +43,7 @@ def order(arr,k):
 def run():
     
     li = np.arange(1,4);
+    li = np.array([1,1,3,3]);
     # print(li);
     order(li,0);
     

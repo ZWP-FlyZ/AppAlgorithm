@@ -46,7 +46,7 @@ def merge_sort(a,b,left,right):
 
 
 def run():
-    a=np.arange(900000,0,-1);
+    a=np.arange(9000,0,-1);
     b=np.zeros_like(a);
     si = len(a);
     np.sort(a);
