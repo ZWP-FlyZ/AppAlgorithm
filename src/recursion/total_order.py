@@ -24,6 +24,7 @@ def order(arr,k):
     m = len(arr);
     if k == (m-1):
         print(arr);
+        pass;
     else:
         for i in range(k,m):
             swap(arr,i,k);
