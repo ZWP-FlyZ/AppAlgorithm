@@ -46,7 +46,7 @@ def traceback(a,s):
     return res;
     
 def run():
-    a = [2,3,5,1,4,6,8,7,11,10,9];
+    a = [2,3,5,1,4];
     n = len(a);
     s = np.zeros((n+1,n+1),np.int);
     MNS(a,s);

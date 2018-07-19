@@ -36,7 +36,7 @@ def mss_m_sep(a,m):
     for j in range(m,n+1):
         if asum<b[j]:asum=b[j];
     return asum;
-    
+     
     pass;
 
 
