@@ -39,9 +39,15 @@ def insert_empt(a,b):
     for i in range(1,n+1):
         if a[0]==b[i]:v[0][i]=v[0][i-1];
         else:v[0][i]=v[0][i-1]+dis(a[0],b[i]);
+
+    for i in range(1,m+1):
+        if a[i]==b[0]:v[i][0]=v[i-1][0];
+        else:v[i][0]=v[i-1][0]+dis(a[i],b[0]);
+
+
     
     for i in range(1,m+1):
-        for j in range(0,n+1):
+        for j in range(1,n+1):
             if a[i]==b[j]:v[i][j]=v[i-1][j-1];
             else:
                 v[i][j]=min(v[i-1][j-1]+dis(a[i],b[j]),
