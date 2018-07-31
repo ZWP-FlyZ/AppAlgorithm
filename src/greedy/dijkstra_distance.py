@@ -43,7 +43,8 @@ def dijkstra(g,origin):
         for it in V:
             if dis[it]<tmp:
                 u=it;tmp=dis[it];
-        V.remove(u);
+        if u in V:
+            V.remove(u);
         
         for it in V:
             if g[u][it]<MAXINT :
