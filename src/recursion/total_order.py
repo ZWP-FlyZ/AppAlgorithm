@@ -42,8 +42,8 @@ def order(arr,k):
             
 def run():
     
-    li = np.arange(1,4);
-    li = np.array([1,1,3,3]);
+    li = np.arange(1,6);
+    # li = np.array([1,2,3,4]);
     # print(li);
     order(li,0);
     
