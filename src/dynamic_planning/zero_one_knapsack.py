@@ -27,7 +27,7 @@ def z1_kp(w,v,c):
     for i in range(w[n],c+1):
         m[n][i]=v[n];
     
-    for i in range(n-1,0,-1):
+    for i in range(n-1,-1,-1):
         ins = min(w[i]-1,c);
         for j in range(1,ins+1):m[i][j]=m[i+1][j];
         for j in range(w[i],c+1):
@@ -48,8 +48,8 @@ def get_x(m,w,c):
 
 def run():
     n=5;
-    w=np.random.randint(1,6,n+1);
-    v=np.random.randint(2,9,n+1);
+#     w=np.random.randint(1,6,n+1);
+#     v=np.random.randint(2,9,n+1);
     w=[2,2,6,5,4];
     v=[6,3,5,4,6];
     c=10;
@@ -58,7 +58,7 @@ def run():
     print(w);
     print(v);
     print(get_x(m,w,c));
-    print(m[1][c]);
+    print(m[0][c]);
     pass;
 
 if __name__ == '__main__':
