@@ -52,8 +52,8 @@ def shipload(w,c):
 
 def run():
     
-    w = [10,40,40];
-    print(shipload(w,50));
+    w = [10,11,15,19,20,32,40];
+    print(shipload(w,53));
     pass;
 
 
