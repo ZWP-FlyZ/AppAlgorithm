@@ -17,7 +17,7 @@ import heapq;
 
 
 
-noedge=-1;
+noedge=999999;
 
 class Node():
     dw=0;# 当前节点下界价值
@@ -61,7 +61,7 @@ def traveling(g):
         rcost+=tmp;
     
     # 初始化 开始节点
-    E = Node();
+    E = Node(0,0,rcost,0,None);
     E.cc=0;
     E.lev=0;
     E.rcost=rcost;
@@ -102,7 +102,18 @@ def traveling(g):
     else:
         print(E.x);
         return E.cc;
-    
+
+
+def run():
+    g=[[noedge, 1,      2, noedge, 5],
+       [1,      noedge, 3,      4,      noedge],
+       [2, 3,      noedge, 4,      3],
+       [noedge, 4,      4,      noedge, 2],
+       [5,      noedge, 3,      2,      noedge]]
+
+    print(traveling(g));
+
 
 if __name__ == '__main__':
+    run();
     pass
