@@ -48,8 +48,8 @@ def get_x(m,w,c):
 
 def run():
     n=5;
-#     w=np.random.randint(1,6,n+1);
-#     v=np.random.randint(2,9,n+1);
+#     w=np.random.rrandom_alg(1,6,n+1);
+#     v=np.random.rrandom_alg(2,9,n+1);
     w=[2,2,6,5,4];
     v=[6,3,5,4,6];
     c=10;

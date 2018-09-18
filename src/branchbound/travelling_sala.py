@@ -109,7 +109,7 @@ def run():
        [1,      noedge, 3,      4,      noedge],
        [2, 3,      noedge, 4,      3],
        [noedge, 4,      4,      noedge, 2],
-       [5,      noedge, 3,      2,      noedge]]
+       [5,      noedge, 3,      2,      noedge]]  
 
     print(traveling(g));
 

@@ -20,7 +20,7 @@ def swap(arr,a,b):
 
 
 
-# np.random.seed(1111111);
+# np.random.seerandom_alg111);
 a = np.random.randint(10,20,[8,5]);
 arr = np.arange(0,7);
 print(a);

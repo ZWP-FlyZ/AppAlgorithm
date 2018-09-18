@@ -84,7 +84,7 @@ def zero_one_knap(w,p,c):
 def run():
     w=[2,2,4,6,5];
     p=[6,3,6,5,4];
-    c = 10;
+    c = 15;
     print(zero_one_knap(w,p,c))
     pass;
 
