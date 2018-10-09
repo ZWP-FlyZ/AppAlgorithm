@@ -6,9 +6,9 @@ Created on 2018年10月9日
 '''
 
 '''
-梯度下降法求解线性模型回归系数
-岭回归
+ Logistic线性分类方法
 '''
+
 import numpy as np;
 
 import matplotlib.pyplot as plt 
@@ -31,7 +31,6 @@ def get_lable(x):
 def set_dataset(x,y):
     plt.figure(1);
     plt.scatter(x,y);
-    oy = get_origin_model(x);
     # plt.plot(x,oy,'b',);
     
 def set_line_model(x,w):
@@ -79,12 +78,20 @@ class dataset():
             ret = self.x[self.order[self.start:end]],self.y[self.order[self.start:end]];
             self.start=end;
             return ret;
-        
-def line_model_gd(train,learn_param):
+   
+
+def sigmoid(x):
+    return 1.0/(1.0+np.exp(-x));
+
+def de_sigmoid(y):
+    return y*(1-y);
+
+     
+def line_model_classif(train,learn_param):
     train_x,train_y = train;
     data_size = len(train_x);
     feat_size = len(train_x[0]);
-    lr,batch_size,epon,lamda = learn_param;
+    lr,batch_size,epon = learn_param;
 
     # 正态标准化数据集
 #     meanx = np.mean(train_x, axis=0);
@@ -96,8 +103,7 @@ def line_model_gd(train,learn_param):
 
     # 添加x0 和 回归系数
     train_x = np.concatenate([np.ones([data_size,1]),train_x],axis=1);
-    w = np.random.normal(0.0,1.0,[feat_size+1,1]);
-    w = np.mat(w);
+    w = np.random.normal(0.0,1.0,[feat_size+1]);
     # 设置随机提取数据集
     ds = dataset(train_x,train_y);
     ds.random();
@@ -106,13 +112,13 @@ def line_model_gd(train,learn_param):
         print('ep=%d start'%(ep+1));
         xy = ds.next(batch_size);
         while xy != None:
-            x,y = np.mat(xy[0]),np.mat(xy[1]);
+            x,y = xy;
             m = y.shape[0];
-            py = x*w;
-            dtw0 = lr*np.mean(py-y);
-            dtwk = lr/m*(x.T * (py-y)+lamda * w);
-            w[0,0]=w[0,0]-dtw0;
-            w[1:,:]=w[1:,:]-dtwk[1:,:];
+            py = sigmoid(np.sum(x*w,axis=1,keepdims=True));
+            depy = de_sigmoid(py);
+            dtw = lr/m*((py-y)*depy);
+            dtw = np.matmul(x.T,dtw).flatten ();
+            w=w-dtw;
             mae = np.mean(np.abs(py-y));
 #             print('----->\n',w,'\n<--------\n');
             print('mae=%f'%mae);
@@ -124,27 +130,37 @@ def line_model_gd(train,learn_param):
 
 def run():
     
-    dataset_param=[-5,5,500];
-    train_x =  np.linspace(*dataset_param); 
-    train_y =  get_lable(train_x);
+    data_size=70;
+
+    lx = np.random.uniform(-1,0,[data_size,1]);
+    ly = np.random.uniform(-1,1,[data_size,1]);
+    labx1 = np.ones([data_size,1]);
+    x1 = np.concatenate([lx,ly],axis=1);
+    
+    lx = np.random.uniform(1,2,[data_size,1]);
+    ly = np.random.uniform(-1,0,[data_size,1]);
+    x2 = np.concatenate([lx,ly],axis=1);
+    labx2 = np.zeros([data_size,1]);
+    
+    x = np.concatenate([x1,x2],axis=0);
+    y = np.concatenate([labx1,labx2],axis=0);
+    
+    print()
+    
+#     meanx = np.mean(x, axis=0);
+#     stdx = np.std(x,axis=0);
+#     x = (x-meanx)/stdx;
+#     # y =  y - np.mean(y,axis=0);
+    set_dataset(x[:,0],x[:,1]);
     
     
-    x = np.reshape(train_x,[-1,1]);
-    y = np.reshape(train_y,[-1,1]);
-    
-    
-    meanx = np.mean(x, axis=0);
-    stdx = np.std(x,axis=0);
-    x = (x-meanx)/stdx;
-    # y =  y - np.mean(y,axis=0);
-    set_dataset(x,y);
-    
-    
-    w = line_model_gd((x,y),(0.02,5,6,0.002));
+    w = line_model_classif((x,y),(0.4,4,50));
     w = np.reshape(np.array(w.T),[-1]);
     w = np.concatenate([w[1:],w[0:1]]);
-    print(w);
-    set_line_model(train_x,w);
+    nw = [-w[0]/w[1],-w[2]/w[1]];
+    print(w,nw);
+    set_line_model(np.linspace(-2,2,20),nw);
+
     show_fig();
     pass;
 
