@@ -21,7 +21,7 @@ def get_lable(x):
     x_s = np.alen(x);
     gas_noise = np.random.normal(scale=noise_rou,size=x_s);
     sin_noise =np.sin(x);
-    st=100;
+    st=1;
     gt=0.5;
     y = get_origin_model(x);
     return y+st*sin_noise+gt*gas_noise;

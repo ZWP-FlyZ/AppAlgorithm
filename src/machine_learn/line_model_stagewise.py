@@ -21,7 +21,7 @@ lr=0.01;step=600;
 feat_size=len(tag_w)-1;
 np.random.seed(121212121);
 
-err_mu = 0.12;
+err_mu = 0.1;
 
 x = np.random.normal(size=[batch_size,feat_size]);
 
