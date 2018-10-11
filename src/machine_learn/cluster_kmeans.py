@@ -46,7 +46,7 @@ def simple_km(data,k):
     ma = np.max(data,axis=0)
     
     ordata=data;
-    data=(data-mi)/ma;
+    data=(data-mi)/(ma-mi);
     if k<1 or  datasize<k:
         raise ValueError('data,k err');
     cents=data[random.sample(range(0,datasize),k)];
@@ -62,7 +62,7 @@ def simple_km(data,k):
             cents[i]=np.mean(data[res[i]],axis=0);    
         bout = np.sum(cents-last_c);
         if bout==0:break;
-    cents=cents*ma+mi;
+    cents=cents*(ma-mi)+mi;
     print(cents);
     cents=[];
     data=ordata;
