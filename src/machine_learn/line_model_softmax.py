@@ -182,8 +182,8 @@ def run():
     print(w);
     nw = np.concatenate([-w[:,1:2]/w[:,2:3],-w[:,0:1]/w[:,2:3]],axis=1);
     print(nw);
-#     for lin in nw:
-#         set_line_model(np.linspace(-2,2,20),lin);
+    for lin in nw:
+        set_line_model(np.linspace(-2,2,20),lin);
     print(predict(w,test));    
     show_fig();
     pass;
