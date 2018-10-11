@@ -5,6 +5,13 @@ Created on 2018年10月11日
 @author: zwp12
 '''
 
+'''
+
+Kmeans聚类
+
+'''
+
+
 import numpy as np;
 import random;
 import matplotlib.pyplot as plt 
@@ -32,6 +39,14 @@ def show_fig():
 
 def simple_km(data,k):
     datasize = len(data);
+    
+    ########## 归一hua #       
+    
+    mi = np.min(data,axis=0);
+    ma = np.max(data,axis=0)
+    
+    ordata=data;
+    data=(data-mi)/ma;
     if k<1 or  datasize<k:
         raise ValueError('data,k err');
     cents=data[random.sample(range(0,datasize),k)];
@@ -47,10 +62,17 @@ def simple_km(data,k):
             cents[i]=np.mean(data[res[i]],axis=0);    
         bout = np.sum(cents-last_c);
         if bout==0:break;
+    cents=cents*ma+mi;
+    print(cents);
+    cents=[];
+    data=ordata;
+    for i in range(k):
+        cents.append(np.mean(data[res[i]],axis=0));
+    print(cents);
     return cents,res;
 
 def run():
-    data_size=30;
+    data_size=100;
     classif=3;
     lx1 = np.random.uniform(-1,0,[data_size,1]);
     ly1 = np.random.uniform(0,1,[data_size,1]);
@@ -66,7 +88,7 @@ def run():
     x3 = np.concatenate([lx3,ly3],axis=1);
 
     x = np.concatenate([x1,x2,x3],axis=0);
-        
+    np.random.shuffle(x);    
     cent,res = simple_km(x,3);
     cent=np.array(cent);
     
