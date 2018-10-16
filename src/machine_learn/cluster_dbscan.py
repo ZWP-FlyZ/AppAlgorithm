@@ -118,7 +118,7 @@ def run():
     
     print(x);
     
-    cent,res=dbscan(x,0.095,4);
+    cent,res=dbscan(x,0.095,3);
         
 
     cent=np.array(cent);
