@@ -107,14 +107,61 @@ def createFPtree(dataset,minsup=1):
             # 将剩余元素按计数非减排序
             orded = [v[0] for v in sorted( locD.items(),
                     key=lambda p:p[1],reverse=True )];
-    
+            print(orded);
             updateTree(orded, root, headTable, count, 0);
     
     return root,headTable;
 
+
+def backAccTree(child):
+    '''
+    >回溯获得父节点列表
+    '''
+    parents=[];    
+    # 去掉自身节点
+    child = child.parent;
+    while child.parent != None:
+        parents.append(child.name);
+        child = child.parent;
+#     parents.pop(0);
+    return parents;
+
+
+def findPrefixPath(headNode):
+    '''
+     通过频繁元素的头节点，寻找该元素的前缀路径
+    '''
+    conpattn = {} # 条件模式基
+    while headNode != None:
+        prefixpth = backAccTree(headNode);
+        print(prefixpth);
+        if len(prefixpth)>0:
+            conpattn[frozenset(prefixpth)] = headNode.count;
+        headNode= headNode.next;
+    return conpattn;
+        
+
+
+def mineTree(tree,headTable,minsup,prefix,freqItems):
+    bigL = [v[0] for v  in sorted(headTable.items(),
+                                key=lambda p:p[1][0])];
+    print(bigL);
+    for elem in bigL:
+        newFrqset= prefix.copy();
+        newFrqset.add(elem);
+        freqItems.append(newFrqset);
+        condPatt = findPrefixPath(headTable[elem][1]);
+        condtree,conHead = createFPtree(condPatt, minsup);
+
+        if conHead != None:
+            print('condtree for ',newFrqset);
+            condtree.show();
+            mineTree(condtree,conHead,minsup,newFrqset,freqItems);
+
 def initDataset(dataset):
     ret = {};
     for it in dataset:
+#         it.sort(reverse=True);
         k = frozenset(it);
         ret[k] = ret.get(k,0)+1;
     return ret;
@@ -134,7 +181,15 @@ def run():
     
     
     tree,head = createFPtree(initdata,3);
-    print(tree.show());
+    tree.show();
+    
+    
+#     conpatt = findPrefixPath(head['r'][1]);
+#     print(conpatt);
+    
+    freqItems=[];
+    mineTree(tree,head,2,set([]),freqItems);
+    print(freqItems);
     
     pass;        
 
